@@ -2,4 +2,10 @@
 yadt-cheat-sheet.pdf
 
 # libre office lock file
-.~lock.cheatsheet.odt#
+.~lock.cheatsheet*.odt#
+
+# tex tmp files
+*.aux
+*.log
+*.out
+.*.swp
