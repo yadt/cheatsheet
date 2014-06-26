@@ -5,6 +5,7 @@
 \usepackage[landscape]{geometry}
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
+\usepackage[export]{adjustbox}
 \usepackage{enumitem}
 
 \usepackage[defaultsans]{droidsans}
@@ -14,11 +15,12 @@
 
 \usepackage{listings}
 \usepackage{color}
- 
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+\definecolor{lightgrey}{gray}{0.6}
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolour},
@@ -99,13 +101,16 @@
 %\setlength{\columnseprule}{0.25pt}
 \setlength{\premulticols}{1pt}
 \setlength{\postmulticols}{1pt}
-\setlength{\multicolsep}{1pt}
-\setlength{\columnsep}{2pt}
+\setlength{\multicolsep}{1em}
+\setlength{\columnsep}{1em}
 
-\includegraphics[width=2cm]{res/yadtlogo}\hfill
+\includegraphics[width=2cm,valign=t]{res/yadtlogo}%
+\hfill%
+\begin{minipage}[t]{5cm}
 {\Large{\textbf{yadt 1.8}}}\hfill
-cheat sheet 0.3 \\
-\hfill\href{http://www.yadt-project.org/}{http://www.yadt-project.org/}
+\textcolor{lightgrey}{cheat sheet 0.3}\\[1em]
+~\hfill\href{http://www.yadt-project.org/}{http://www.yadt-project.org/}
+\end{minipage}
 
 
 \section{Concept}
@@ -123,6 +128,13 @@ via passwordless ssh and provide a yadt client.
 host://<hostname>
 service://<hostname>/<name>
 artefact://<hostname>/<name>/<version>
+\end{lstlisting}
+
+\emph{Examples}
+\begin{lstlisting}
+host://hostname
+service://hostname/tomcat6
+artefact://hostname/web-application/0:1.23
 \end{lstlisting}
 
 Components are \emph{always} host-specific.
