@@ -22,7 +22,7 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.95}
 \definecolor{lightgrey}{gray}{0.6}
 
-\lstdefinestyle{mystyle}{
+\lstdefinestyle{definitioncode}{
     backgroundcolor=\color{backcolour},
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
@@ -40,8 +40,25 @@
     showtabs=false,
     tabsize=2
 }
+\lstdefinestyle{examplecode}{
+    backgroundcolor=,%
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=none,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
 
-\lstset{style=mystyle}
+
+\lstset{style=definitioncode}
 
 
 
@@ -131,7 +148,7 @@ artefact://<hostname>/<name>/<version>
 \end{lstlisting}
 
 \emph{Examples}
-\begin{lstlisting}
+\begin{lstlisting}[style=examplecode]
 host://hostname
 service://hostname/tomcat6
 artefact://hostname/web-application/0:1.23
