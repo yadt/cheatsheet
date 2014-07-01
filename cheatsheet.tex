@@ -1,9 +1,17 @@
 \documentclass[10pt,landscape]{article}
+\usepackage{xcolor}
 \usepackage{multicol}
 \usepackage{calc}
 \usepackage{ifthen}
 \usepackage[landscape]{geometry}
-\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
 \usepackage{graphicx}
 \usepackage[export]{adjustbox}
 \usepackage{enumitem}
@@ -14,7 +22,6 @@
 
 
 \usepackage{listings}
-\usepackage{color}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -54,7 +61,11 @@
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
-    tabsize=2
+    tabsize=2,
+    frame=single,
+    framesep=1pt,
+    framerule=0.8pt,
+    rulecolor=\color{lightgrey}
 }
 
 
@@ -104,9 +115,61 @@
 \setlength{\parskip}{0pt plus 0.5ex}
 
 
+%\usepackage{libertine}
+%\usepackage[T1]{fontenc}
+%\usepackage{listings}
+%\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true, postbreak={\mbox{$\hookrightarrow\space$}}, language=Mathematica}
+
+\usepackage[framemethod=TikZ]{mdframed}
+
+\makeatletter
+\def\mdf@@codeheading{Code Listings}%new mdframed key:
+\define@key{mdf}{title}{%
+   \def\mdf@@codeheading{#1}
+}
+
+\mdfdefinestyle{lstlisting}{%
+ innertopmargin=5pt,
+ middlelinewidth=1pt,
+ outerlinewidth=9pt,outerlinecolor=white,
+ innerleftmargin=10pt,
+ innerrightmargin=10pt,
+ leftmargin=-9pt,rightmargin=-9pt,
+ skipabove=\topskip,
+ skipbelow=\topskip,
+ roundcorner=5pt,
+ singleextra={\node[draw, fill=white,anchor=west, xshift=10pt+1pt,font=\bfseries] at (O|-P) {\csname mdf@@codeheading\endcsname};},
+ firstextra={\node[draw, fill=white,anchor=west, xshift=10pt+1pt,font=\bfseries] at (O|-P) {\csname mdf@@codeheading\endcsname};}
+}
+
+\lstnewenvironment{code}[2][]{%
+  \lstset{#1}%
+  \mdframed[style=lstlisting,title={#2}]%
+}{\endmdframed}
+
+
+
+
+
 % -----------------------------------------------------------------------
 
 \begin{document}
+
+Text
+
+\begin{code}{Mathematice Listings}
+B11[x_, y_] = Piecewise[{{1, 0 <= x <= 1 && 0 <= y <= 1}}];
+Plot3D[B11[x, y], {x, -.5, 1.5}, {y, -.5, 1.5}, PlotRange -> Full]; 
+\end{code}
+
+Text
+
+\begin{code}{Code Listings}
+B11[x_, y_] = Piecewise[{{1, 0 <= x <= 1 && 0 <= y <= 1}}];
+Plot3D[B11[x, y], {x, -.5, 1.5}, {y, -.5, 1.5}, PlotRange -> Full]; 
+\end{code}
+
+\newpage
 
 \raggedright
 \footnotesize
@@ -148,13 +211,13 @@ artefact://<hostname>/<name>/<version>
 \end{lstlisting}
 
 \emph{Examples}
-\begin{lstlisting}[style=examplecode]
+\begin{lstlisting}[style=examplecode,title=Examples]
 host://hostname
 service://hostname/tomcat6
 artefact://hostname/web-application/0:1.23
 \end{lstlisting}
 
-Components are \emph{always} host-specific.
+Note: Components are \emph{always} host-specific.
 
 \subsection{Brace Exception}
 \begin{lstlisting}
@@ -175,10 +238,10 @@ service://hostname/*
 
 \section{yadt.conf.d (directory)}
 
-The yadt minion gets configured via *.yaml files in /etc/yadt.conf.d;
+The yadt minion gets configured via \verb+*.yaml+ files in \verb+/etc/yadt.conf.d+;
 they get merged in alphanumeric order.
 \\
-\emph{Keep in mind}: Indented blocks have to start with \emph{4 blanks}. 
+\emph{Keep in mind}: Indented blocks have to start with \emph{4 blanks}.
 Do not use tabs.
 
 \begin{lstlisting}[showspaces=true]
@@ -191,7 +254,7 @@ services:
 \end{lstlisting}
 
 The service name must be equal to the corresponding name of the
-service script (as found in /etc/init.d).
+service script (as found in \verb+/etc/init.d+).
 
 \begin{description}[font=\bfseries,leftmargin=1cm,style=sameline]
     \item [is\_frontservice]
@@ -208,14 +271,17 @@ The service definition may contain a component URI as string,
 which describes a service on another host, e.g.
 
 \begin{lstlisting}
-needs_services: ['service://hostname/servicename']
+needs_services: ['service://hostname/service']
 \end{lstlisting}
 
 Please note that this notation only allows the \emph{hostname},
 not the full qualified domain name. Yadtshell extracts the hostname from
 the fqdn as the string until the first dot.
 
-Please see the \emph{Merging configuration} section for more information.
+Please see the
+\href{https://github.com/yadt/yadtshell/wiki/Host-Configuration}{host configuration section}
+of the \href{https://github.com/yadt/yadtshell/wiki}{yadtshell wiki}
+for more information.
 
 
 
@@ -243,27 +309,26 @@ this will change the way the hosts will be displayed.
 
 
 
-\section{view (file)}
-
-If you have a lot of hosts in a target you can use a yaml-file
-called view to configure the rendering of the status overview.
-Place the view file together with the target file in the current
-working directory.
-
-\begin{lstlisting}
-info-view: [matrix, color]
-\end{lstlisting}
-
-\begin{description}[font=\bfseries,leftmargin=1.5cm,style=sameline]
-    \item [matrix]  show status information in matrix
-    \item[color]    display status in color
-    \item[maxcols]  maximum number of columns
-    \item[3cols]    use three columns
-\end{description}
-
-
-
-\vfill\columnbreak
+%\section{view (file)}
+%
+%If you have a lot of hosts in a target you can use a yaml-file
+%called view to configure the rendering of the status overview.
+%Place the view file together with the target file in the current
+%working directory.
+%
+%\begin{lstlisting}
+%info-view: [matrix, color]
+%\end{lstlisting}
+%
+%\begin{description}[font=\bfseries,leftmargin=1.5cm,style=sameline]
+%    \item [matrix]  show status information in matrix
+%    \item[color]    display status in color
+%    \item[maxcols]  maximum number of columns
+%    \item[3cols]    use three columns
+%\end{description}
+%
+%
+%\vfill\columnbreak
 
 
 
@@ -416,7 +481,7 @@ depending on the service again.
 If a service is currently out of order you can ignore the state of a service
 (e.g. assume all operations on that service are successful):
 \begin{lstlisting}
-ignore -m "message" <service_uri> [<service_uri> ...]
+ignore -m "message" <service_uri> [...]
 \end{lstlisting}
 
 \emph{Example:} ignore all nagios checks, since the nagios server is down
@@ -426,7 +491,7 @@ ignore -m "nagios server is down" service://*/nagios
 
 To unignore services on host use:
 \begin{lstlisting}
-unignore <service_uri> [<service_uri> ...]
+unignore <service_uri> [...]
 \end{lstlisting}
 
 
@@ -436,7 +501,7 @@ unignore <service_uri> [<service_uri> ...]
 
 To install updates (if there are any) and stop/start the defined services use:
 \begin{lstlisting}
-update <host_uri> [<host_uri> …] [-p <number>]
+update [<host_uri> ...] [-p <number>]
 \end{lstlisting}
 
 If you only want to update artefacts without restarting services,
@@ -448,9 +513,13 @@ updateartefact <artefact_uri> [...]
 
 
 
-\scriptsize
-\hfill\href{http://www.yadt-project.org/}{http://www.yadt-project.org/}
-\includegraphics[width=2cm]{res/yadtlogo}
+\begin{minipage}[b]{5cm}
+~\hfill\href{https://github.com/yadt/yadtshell/wiki}{yadtshell wiki} at github
+
+~\hfill\href{http://www.yadt-project.org/}{http://www.yadt-project.org/}
+\end{minipage}%
+\hfill%
+\includegraphics[width=2cm,valign=b]{res/yadtlogo}%
 
 \end{multicols}
 \end{document}
