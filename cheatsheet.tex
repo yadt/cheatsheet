@@ -168,6 +168,7 @@
 \raggedright
 \footnotesize
 \begin{multicols}{3}
+\raggedcolumns
 
 
 % multicol parameters
@@ -336,15 +337,10 @@ This will change the way the hosts will be displayed.
 
 
 
-\section{Executing yadt commands}
+\section{Using the yadtshell}
 
-All involved hosts have to be accessible via \emph{passwordless ssh}.
-
-
-\subsection{1. Using yadtshell as a shell}
-
-\begin{commands}{Start with}
-$ init-yadtshell
+\begin{commands}{start yadtshell}
+> init-yadtshell
 \end{commands}
 
 \begin{itemize}
@@ -354,16 +350,18 @@ $ init-yadtshell
 
 To restores your shell environment you can use \verb#CTRL+D# or
 
-\begin{commands}{Stop with}
-$ deactivate
+\begin{commands}{stop yadtshell}
+> deactivate
 \end{commands}
 
 
-\subsection{2. Using yadtshell as a command}
+\newpage
+
+\section{Yadtshell Commands}
 
 Use the \verb#yadtshell# command if you prefer to execute yadtshell commands
 without entering the yadtshell itself:
-\begin{commands}{Usage}
+\begin{commands}{general usage}
 > yadtshell [options] <command> [<uri> ...]
 \end{commands}
 
@@ -379,13 +377,13 @@ without entering the yadtshell itself:
 
 To retrieve the status of all services and artefacts versions from the current
 target use:
-\begin{commands}{Fetch current status}
+\begin{commands}{fetch status}
 > status
 \end{commands}
 
 This will also perform \verb+info+, which displays a summary of all
 services for each host within the current target:
-\begin{commands}{Show latest status}
+\begin{commands}{show status}
 > info [--full]
 \end{commands}
 
@@ -394,7 +392,7 @@ services for each host within the current target:
 \end{description}
 
 To display low-level data of components (in yaml format) use
-\begin{commands}{raw data}
+\begin{commands}{dump json data}
 > dump [uri-query0 [uri-query1 ...]]
 \end{commands}
 
