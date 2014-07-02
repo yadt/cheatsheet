@@ -158,8 +158,13 @@
 \setlength{\parskip}{0pt plus 0.5ex}
 
 
-\newcommand{\note}[1]{\medskip\textbf{Note:} {#1}\medskip}
+%\newcommand{\note}[1]{\medskip\textbf{Note:} {#1}\medskip}
 
+\newcommand{\note}[2][Note]{
+\begin{description}[font=\bfseries,leftmargin=1cm,style=sameline]
+    \item [{#1}] {#2}
+\end{description}
+}
 
 % -----------------------------------------------------------------------
 
