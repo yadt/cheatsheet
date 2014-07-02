@@ -215,7 +215,7 @@ via passwordless ssh and provide a yadt minion (the counterpart to the yadtshell
 
 
 
-\section{Definition: Component URI}
+\section{Component URIs}
 
 \begin{commands}{compontent uris}
 host://<hostname>
@@ -245,12 +245,12 @@ service://hostname/*
 
 
 
-\section{yadt.conf.d (directory)}
+\section{Host Configuration}
 
-The yadt minion gets configured via \verb+*.yaml+ files in \verb+/etc/yadt.conf.d+;
-they get merged in alphanumeric order.
+The yadt minion gets configured via \verb+*.yaml+ files in the
+\verb+/etc/yadt.conf.d+ directory; they get merged in alphanumeric order.
 
-\note{Indented blocks have to start with \emph{4 blanks}. Do \emph{not} use tabs.}
+\note{Indented blocks have to start with 4 blanks. Do \emph{not} use tabs.}
 
 \begin{examples}[showspaces=true]{/etc/yadt.conf.d/my-services.yaml}
 services:
@@ -293,7 +293,7 @@ for more information.
 
 
 
-\section{target (file)}
+\section{Target Configuration}
 
 yadtshell uses a yaml file named
 \verb+target+ in the current working directory to define a yadt target (set of hosts), e.g.
