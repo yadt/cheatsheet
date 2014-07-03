@@ -1,7 +1,7 @@
 Yadt Cheat Sheet
 ================
 
-Visit the [YADT project site](http://yadt-project.org) to download the cheat sheet.
+This repository contains the original latex file and other resources to render
+the [cheatsheet](http://yadt.github.io/cheatsheet/cheatsheet.pdf).
 
-This repository contains the original odt file.
-
+Visit our official [YADT project site](http://yadt-project.org), too...
