@@ -205,7 +205,7 @@ After running \verb+update+ successfully, all hosts are up-to-date and
 all services are up and running.
 
 \note{In case of a problem (i.e. a command terminates with exit~code~!=~0),
-yadtshell stops immediately. Subsequent calls of the same cammend continue
+yadtshell stops immediately. Subsequent calls of the same command continue
 where the previous call stopped.}
 
 \includegraphics[width=\linewidth]{res/concept}
@@ -217,7 +217,7 @@ via passwordless ssh and provide a yadt minion (the counterpart to the yadtshell
 
 \section{Component URIs}
 
-\begin{commands}{compontent uris}
+\begin{commands}{component uris}
 host://<hostname>
 service://<hostname>/<name>
 artefact://<hostname>/<name>/<version>
@@ -350,10 +350,10 @@ This will change the way the hosts will be displayed.
 
 \begin{itemize}
 \item activates autocompletion for component uris,
-\item allows to omit \verb#yadtshell# when executing a yadtshell commands.
+\item allows to omit \verb#yadtshell# when executing yadtshell commands.
 \end{itemize}
 
-To restores your shell environment you can use \verb#CTRL+D# or
+To restore your shell environment you can use \verb#CTRL+D# or
 
 \begin{commands}{stop yadtshell}
 > deactivate
@@ -380,7 +380,7 @@ without entering the yadtshell itself:
 
 \subsection{Status Information}
 
-To retrieve the status of all services and artefacts versions from the current
+To retrieve the status of all services and artefact versions from the current
 target use:
 \begin{commands}{fetch status}
 > status
@@ -389,7 +389,7 @@ target use:
 This will also perform \verb+info+, which displays a summary of all
 services for each host within the current target:
 \begin{commands}{show status}
-> info [--full]
+> info
 \end{commands}
 
 \begin{description}[font=\bfseries,leftmargin=1.5cm,style=sameline]
@@ -397,7 +397,7 @@ services for each host within the current target:
 \end{description}
 
 To display low-level data of components (in yaml format) use
-\begin{commands}{dump json data}
+\begin{commands}{dump yaml data}
 > dump [uri-query0 [uri-query1 ...]]
 \end{commands}
 
@@ -440,7 +440,7 @@ afterwards commands can only be executed
 \end{examples}
 
 \note{The message should reflect the reason why you are doing what you are doing and
-include your name as well}
+include your name as well.}
 
 \begin{examples}{with message}
 > lock -m "updating host [Michael]" host://hostname31
@@ -474,7 +474,7 @@ To stop a service and all services depending on the service:
 > stop <service_uri> [<service_uri> ...]
 \end{commands}
 
-\note{When stopping a service all services depending on this service will be
+\note{When stopping a service, all services depending on this service will be
 stopped as well. But starting the service will \emph{not} start the services
 depending on the service again.}
 
